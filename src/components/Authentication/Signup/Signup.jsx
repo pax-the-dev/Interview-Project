@@ -2,8 +2,11 @@ import loginSignupImage from "../../../assets/login-signup.png";
 import "@fontsource/dm-sans";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useNavigate } from "react-router-dom";
 
 function Signup() {
+  const navigate = useNavigate();
+
   const validationSchema = Yup.object().shape({
     name: Yup.string()
       .min(3, "Name must be at least 3 characters")
@@ -26,23 +29,13 @@ function Signup() {
       password: "",
     },
     validationSchema: validationSchema,
-    onSubmit: async (values) => {
-      try {
-        const response = await fetch("/api/register", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(values),
-        });
-
-        if (response.ok) {
-          console.log("Înregistrare reușită!");
-        } else {
-          console.error("Eroare la înregistrare:", response.statusText);
-        }
-      } catch (error) {
-        console.error("Error:", error);
+    onSubmit: () => {
+      if (
+        !formik.errors.name &&
+        !formik.errors.email &&
+        !formik.errors.password
+      ) {
+        navigate("/login");
       }
     },
   });
@@ -127,7 +120,7 @@ function Signup() {
           </div>
           <form onSubmit={formik.handleSubmit}>
             <button
-              type="button"
+              type="submit"
               className="bg-[#482BE7] text-white font-bold rounded-full w-[210px] h-[60px] p-2 mt-16 left-[135px] absolute"
             >
               Sign Up

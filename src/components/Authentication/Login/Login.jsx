@@ -21,7 +21,7 @@ function Login() {
           <div className="password text-lg text-left mt-6">
             <label className="block font-medium">PASSWORD</label>
             <input
-              type="text"
+              type="password"
               id="password"
               placeholder="Your password"
               className="border border-gray-300 rounded-full w-[470px] h-[60px] p-2 mt-[15px] pl-6"
