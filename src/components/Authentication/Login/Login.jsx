@@ -6,7 +6,7 @@ function Login() {
     <div className="login flex h-screen font-sans">
       <div className="w-3/5 bg-white text-[#1E0E62] p-4">
         <p className="text-7xl text-left mt-[99px] ml-[115px] font-bold">
-          Sign in and let's start your journey!
+          Sign in and let&apos;s start your journey!
         </p>
         <div className="w-[470px] h-[324px] mt-[51px] ml-[115px]">
           <div className="email text-lg text-left mt-6">
