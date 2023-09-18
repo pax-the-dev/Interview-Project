@@ -1,26 +1,9 @@
-import loginSignupImage from "../../../assets/login-signup.png";
-import "@fontsource/dm-sans";
 import { useFormik } from "formik";
-import * as Yup from "yup";
+import { signUpSchema } from "../../../../validationSchemas.jsx";
 import { useNavigate } from "react-router-dom";
 
 function Signup() {
   const navigate = useNavigate();
-
-  const validationSchema = Yup.object().shape({
-    name: Yup.string()
-      .min(3, "Name must be at least 3 characters")
-      .matches(/^[a-zA-Z]+$/, "Name must contain only letters"),
-    email: Yup.string()
-      .email("Invalid email format")
-      .required("Email is required"),
-    password: Yup.string()
-      .required("Password is required")
-      .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
-        "Invalid password."
-      ),
-  });
 
   const formik = useFormik({
     initialValues: {
@@ -28,7 +11,7 @@ function Signup() {
       email: "",
       password: "",
     },
-    validationSchema: validationSchema,
+    validationSchema: signUpSchema,
     onSubmit: () => {
       if (
         !formik.errors.name &&
@@ -47,7 +30,7 @@ function Signup() {
           Sign Up to Discover Startup Features
         </p>
         <div className="w-[470px] h-[324px] mt-[51px] ml-[115px]">
-          <div className="name text-lg text-left mt-6">
+          <div className="text-lg text-left mt-6">
             <label
               className={`block font-medium ${
                 formik.errors.name && formik.touched.name ? "text-red-500" : ""
@@ -57,7 +40,6 @@ function Signup() {
             </label>
             <input
               type="text"
-              id="name"
               placeholder="Your name"
               className={`border border-gray-300 w-[470px] h-[60px] rounded-full p-2 mt-[15px] pl-6 ${
                 formik.errors.name && formik.touched.name ? "text-red-500" : ""
@@ -68,7 +50,7 @@ function Signup() {
               <div className="text-red-500">{formik.errors.name}</div>
             ) : null}
           </div>
-          <div className="email text-lg text-left mt-6">
+          <div className="text-lg text-left mt-6">
             <label
               className={`block font-medium ${
                 formik.errors.email && formik.touched.email
@@ -79,8 +61,7 @@ function Signup() {
               Email:
             </label>
             <input
-              type="text"
-              id="email"
+              type="email"
               placeholder="Your email"
               className={`border border-gray-300 w-[470px] h-[60px] rounded-full p-2 mt-[15px] pl-6 ${
                 formik.errors.email && formik.touched.email
@@ -93,7 +74,7 @@ function Signup() {
               <div className="text-red-500">{formik.errors.email}</div>
             ) : null}
           </div>
-          <div className="password text-lg text-left mt-6">
+          <div className="text-lg text-left mt-6">
             <label
               className={`block font-medium ${
                 formik.errors.password && formik.touched.password
@@ -105,7 +86,6 @@ function Signup() {
             </label>
             <input
               type="password"
-              id="password"
               placeholder="Your password"
               className={`border border-gray-300 w-[470px] h-[60px] rounded-full p-2 mt-[15px] pl-6 ${
                 formik.errors.password && formik.touched.password
@@ -131,8 +111,8 @@ function Signup() {
           </p>
         </div>
       </div>
-      <div className="w-3/5">
-        <img src={loginSignupImage} alt="Signup" className="w-full h-full" />
+      <div className="w-[60%]">
+        <img src="/login-signup.png" alt="Signup" className="w-full h-full" />
       </div>
     </div>
   );
