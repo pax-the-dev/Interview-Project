@@ -18,6 +18,14 @@ function Signup() {
         !formik.errors.email &&
         !formik.errors.password
       ) {
+        const userData = {
+          name: formik.values.name,
+          email: formik.values.email,
+          password: formik.values.password,
+        };
+
+        localStorage.setItem("userData", JSON.stringify(userData));
+
         navigate("/login");
       }
     },

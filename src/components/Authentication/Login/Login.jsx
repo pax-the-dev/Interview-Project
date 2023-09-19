@@ -1,22 +1,38 @@
 import { useFormik } from "formik";
 import { loginSchema } from "../../../../validationSchemas";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 function Login() {
   const navigate = useNavigate();
+  const [error, setError] = useState("");
 
   const formik = useFormik({
     initialValues: {
-      email: "",
-      password: "",
+      email: localStorage.getItem("email") || "",
+      password: localStorage.getItem("password") || "",
     },
     validationSchema: loginSchema,
     onSubmit: () => {
-      if (!formik.errors.email && !formik.errors.password) {
+      const storedUserData = JSON.parse(localStorage.getItem("userData"));
+      if (
+        storedUserData &&
+        formik.values.email === storedUserData.email &&
+        formik.values.password === storedUserData.password
+      ) {
         navigate("/product-list");
+      } else {
+        setError("Email or password are incorrect.");
       }
     },
   });
+
+  useEffect(() => {
+    return () => {
+      localStorage.removeItem("email");
+      localStorage.removeItem("password");
+    };
+  }, []);
 
   return (
     <div className="flex h-screen font-sans">
@@ -73,6 +89,7 @@ function Login() {
               {formik.errors.password && formik.touched.password ? (
                 <div className="text-red-500">{formik.errors.password}</div>
               ) : null}
+              {error && <div className="text-red-500">{error}</div>}
             </div>
             <div className="flex flex-start">
               <button
