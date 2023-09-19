@@ -3,9 +3,9 @@ export default {
   content: ["./src/**/*.{html,jsx,js}"],
   theme: {
     extend: {},
-    fontFamily: {
-      sans: ["DM Sans", "sans-serif"],
-    },
+    // fontFamily: {
+    //   sans: ["DM Sans", "sans-serif"],
+    // },
   },
   plugins: [],
 };
