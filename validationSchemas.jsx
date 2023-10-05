@@ -17,7 +17,7 @@ export const signUpSchema = object().shape({
 export const loginSchema = object().shape({
   email: string().email("Invalid email format").required("Email is required"),
   password: string()
-    .required("Password is required")
+    .required("Invalid password format.")
     .matches(
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
       "Invalid password."

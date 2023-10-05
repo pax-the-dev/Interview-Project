@@ -1,6 +1,7 @@
 import { useFormik } from "formik";
 import { signUpSchema } from "../../../../validationSchemas.jsx";
 import { useNavigate } from "react-router-dom";
+import clsx from "clsx";
 
 function Signup() {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ function Signup() {
       password: "",
     },
     validationSchema: signUpSchema,
-    onSubmit: () => {
+    onSubmit: (values) => {
       if (
         !formik.errors.name &&
         !formik.errors.email &&
@@ -25,11 +26,26 @@ function Signup() {
         };
 
         localStorage.setItem("userData", JSON.stringify(userData));
-
         navigate("/login");
+        console.log(values);
       }
     },
   });
+
+  const inputClassesPassword = clsx(
+    "border border-gray-300 w-[470px] h-[60px] rounded-full p-2 mt-[15px] pl-6",
+    formik.errors.password && formik.touched.password ? "text-red-500" : ""
+  );
+
+  const inputClassesName = clsx(
+    "border border-gray-300 w-[470px] h-[60px] rounded-full p-2 mt-[15px] pl-6",
+    formik.errors.name && formik.touched.name ? "text-red-500" : ""
+  );
+
+  const inputClassesEmail = clsx(
+    "border border-gray-300 w-[470px] h-[60px] rounded-full p-2 mt-[15px] pl-6",
+    formik.errors.email && formik.touched.email ? "text-red-500" : ""
+  );
 
   return (
     <div className="flex h-screen font-sans">
@@ -53,12 +69,7 @@ function Signup() {
               <input
                 type="text"
                 placeholder="Your name"
-                className={`border border-gray-300 w-[470px] h-[60px] rounded-full p-2 mt-[15px] pl-6 ${
-                  formik.errors.name && formik.touched.name
-                    ? "text-red-500"
-                    : ""
-                }`}
-                {...formik.getFieldProps("name")}
+                className={inputClassesName}
               />
               {formik.errors.name && formik.touched.name ? (
                 <div className="text-red-500">{formik.errors.name}</div>
@@ -77,12 +88,7 @@ function Signup() {
               <input
                 type="email"
                 placeholder="Your email"
-                className={`border border-gray-300 w-[470px] h-[60px] rounded-full p-2 mt-[15px] pl-6 ${
-                  formik.errors.email && formik.touched.email
-                    ? "text-red-500"
-                    : ""
-                }`}
-                {...formik.getFieldProps("email")}
+                className={inputClassesEmail}
               />
               {formik.errors.email && formik.touched.email ? (
                 <div className="text-red-500">{formik.errors.email}</div>
@@ -101,12 +107,7 @@ function Signup() {
               <input
                 type="password"
                 placeholder="Your password"
-                className={`border border-gray-300 w-[470px] h-[60px] rounded-full p-2 mt-[15px] pl-6 ${
-                  formik.errors.password && formik.touched.password
-                    ? "text-red-500"
-                    : ""
-                }`}
-                {...formik.getFieldProps("password")}
+                className={inputClassesPassword}
               />
               {formik.errors.password && formik.touched.password ? (
                 <div className="text-red-500">{formik.errors.password}</div>

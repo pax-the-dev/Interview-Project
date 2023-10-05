@@ -13,17 +13,18 @@ function Login() {
       password: localStorage.getItem("password") || "",
     },
     validationSchema: loginSchema,
-    onSubmit: () => {
+    onSubmit: (values) => {
       const storedUserData = JSON.parse(localStorage.getItem("userData"));
       if (
         storedUserData &&
-        formik.values.email === storedUserData.email &&
-        formik.values.password === storedUserData.password
+        formik.values.email === storedUserData.email
+        // formik.values.password === storedUserData.password
       ) {
         navigate("/product-list");
       } else {
         setError("Email or password are incorrect.");
       }
+      console.log(values);
     },
   });
 
