@@ -1,10 +1,31 @@
+import Login from "./components/Authentication/Login/Login";
+import Signup from "./components/Authentication/Signup/Signup";
 import "./tailwind.css";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useEffect } from "react";
 
 function App() {
+  const userIsAuthenticated = useEffect(() => {}, []);
+
   return (
-    <div className="bg-gray-800 text-center w-full h-screen">
-      <h1>Interview Project Dev</h1>
-    </div>
+    <BrowserRouter>
+      <div className="bg-white text-center w-full h-screen">
+        <Routes>
+          <Route
+            path="/"
+            element={
+              userIsAuthenticated ? (
+                <Navigate to="/login" />
+              ) : (
+                <Navigate to="/signup" />
+              )
+            }
+          />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 
